@@ -133,6 +133,7 @@ def git_pull_repo_for_inst(inst_id: int, *commit_sha: str):
     Header Instance: {inst_id}
     """
     inst = {"Instance": inst_id}
+    check_auth()
     headers = default_headers | bearer | inst
     response = requests.delete(
         url=TGS_ADDRESS + "/DreamDaemon", headers=headers, timeout=1000)
