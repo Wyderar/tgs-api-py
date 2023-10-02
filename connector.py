@@ -117,6 +117,23 @@ def git_pull_repo_for_inst(inst_id: int, *commit_sha: str):
         url=TGS_ADDRESS + f"/Repository/{inst_id}", headers=headers, params=params, timeout=1000)
     return response.json()
 
+  def start(inst_id: int):
+    """PUT /DreamDaemon 
+    Header Instance: {inst_id}
+    """
+    inst = {"Instance": inst_id}
+    check_auth()
+    headers = default_headers | bearer | inst
+    response = requests.put(
+        url=TGS_ADDRESS + "/DreamDaemon", headers=headers, timeout=1000)
+    return response.json()
 
-auth()
-print(get_instance(1))
+  def stop(inst_id: int):
+    """DELETE /DreamDaemon
+    Header Instance: {inst_id}
+    """
+    inst = {"Instance": inst_id}
+    headers = default_headers | bearer | inst
+    response = requests.delete(
+        url=TGS_ADDRESS + "/DreamDaemon", headers=headers, timeout=1000)
+    return response.json()
